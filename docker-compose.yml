@@ -1,7 +1,37 @@
 version: "3.9"
 
+networks:
+  stocks_products_net:
+
 services:
   web:
     build: .
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+#    volumes:
+#      - ./:/usr/src/app/
+    volumes:
+      - .:/code
     ports:
-      - "8000:8000"
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13.0-alpine
+    ports:
+      - 5434:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_USER=smm
+      - POSTGRES_PASSWORD=vrag
+      - POSTGRES_DB=netology_stocks_products
+#  pgAdmin:
+
+
