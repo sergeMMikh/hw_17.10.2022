@@ -16,13 +16,13 @@ jobs:
       POSTGRES_PORT: 5432
       SECRET_KEY: "django-insecure-nw^y+m^wmxza1asgk+)!ua2qx9)g+#v=6%76-9i8i(6eqiw94j"
       ALLOWED_HOSTS: "*"
-
-    postgres:
-      image: postgres:latest
-      env:
-        POSTGRES_DB: ${{ env.POSTGRES_DB }}
-        POSTGRES_USER: ${{ env.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ env. POSTGRES_PASSWORD }}
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env. POSTGRES_PASSWORD }}
 
     steps:
       - name: Check updates
