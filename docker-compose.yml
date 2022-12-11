@@ -7,11 +7,9 @@ services:
   web:
     build: .
     command: >
-      sh -c "python manage.py makemigrations &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
-#    volumes:
-#      - ./:/usr/src/app/
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    networks:
+      -   stocks_products_net
     volumes:
       - .:/code
     ports:
@@ -20,18 +18,60 @@ services:
       - .env
     depends_on:
       - postgres
+      - migration
 
   postgres:
-    image: postgres:13.0-alpine
-    ports:
-      - 5434:5432
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    restart: always
+    image: postgres:latest
     environment:
-      - POSTGRES_USER=smm
-      - POSTGRES_PASSWORD=vrag
-      - POSTGRES_DB=netology_stocks_products
-#  pgAdmin:
+      POSTGRES_DB: "netology_stocks_products"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "secret"
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    networks:
+      - stocks_products_net
+    volumes:
+#      - pgdata:/var/lib/postgresql/db
+      - ./logs:/var/log
+      - .:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready - U smm -d new_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  migration:
+    image: postgres
+    command: python manage.py makemigrations &&
+      python manage.py migrate --noinput
+    volumes:
+      - .:/code
+    depends_on:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:5.7
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "s.m.mih@mail.ru"
+      PGADMIN_DEFAULT_PASSWORD: "vrag"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - ./pgadmin:/var/log/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1G
+    networks:
+      - stocks_products_net
+
+
 
 
