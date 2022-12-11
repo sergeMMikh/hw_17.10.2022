@@ -1,0 +1,24 @@
+name:
+  Django Testing and Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check updates
+        users: actions/checkout@v2
+
+      - name: Python setup
+        users: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: setup libs
+        run: |
+          pip install --upgrade pip|
+          pip install -r requirements.txt
