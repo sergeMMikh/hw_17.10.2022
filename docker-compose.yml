@@ -71,6 +71,12 @@ services:
           memory: 1G
     networks:
       - stocks_products_net
+  nginx_int:
+    image: nginx
+    networks:
+      - stocks_products_net
+
+
 
 
 
