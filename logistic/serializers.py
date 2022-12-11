@@ -56,15 +56,13 @@ class StockSerializer(serializers.ModelSerializer):
 
         for position in positions:
             try:
-                obj = StockProduct.objects.get(stock=stock, price=position.get('price'))
+                obj = StockProduct.objects.get(
+                    stock=stock,
+                    price=position.get('price'))
                 setattr(obj, 'quantity', position.get('quantity'))
                 setattr(obj, 'price', position.get('price'))
                 obj.save()
             except StockProduct.DoesNotExist:
                 StockProduct.objects.create(stock=stock, **position)
-
-            # StockProduct.objects.update_or_create(stock=stock, **position,
-            #                                       defaults={'quantity': position.get('quantity'),
-            #                                                 'price' :position.get('price')})
 
         return stock
