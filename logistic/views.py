@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -22,3 +23,8 @@ class StockViewSet(ModelViewSet):
     # при необходимости добавьте параметры фильтрации
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['products']
+
+
+def test_view(request):
+    return HttpResponse("Test done!")
+
