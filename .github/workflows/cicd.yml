@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Check updates
-        users: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Python setup
-        users: actions/setup-python@v2
+        uses: actions/setup-python@v2
         with:
           python-version: 3.9
 
