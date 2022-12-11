@@ -32,7 +32,6 @@ services:
     networks:
       - stocks_products_net
     volumes:
-#      - pgdata:/var/lib/postgresql/db
       - ./logs:/var/log
       - .:/docker-entrypoint-initdb.d
     restart: unless-stopped
