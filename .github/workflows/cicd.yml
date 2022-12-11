@@ -18,13 +18,13 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: setup libs
-        run: |
-          pip install --upgrade pip |
-          pip install -r requirements.txt
-
-      - name: Linting of stocks_products
-        run: flake8 stocks_products
-
-      - name: Linting of logistic
-        run: flake8 logistic
+#      - name: setup libs
+#        run: |
+#          pip install --upgrade pip |
+#          pip install -r requirements.txt
+#
+#      - name: Linting of stocks_products
+#        run: flake8 stocks_products
+#
+#      - name: Linting of logistic
+#        run: flake8 logistic
