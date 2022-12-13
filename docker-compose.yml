@@ -13,14 +13,14 @@ services:
     volumes:
       - .:/code
     ports:
-      - 8000:8000
+      - "8000:8000"
     env_file:
       - .env
     depends_on:
-      - postgres
+      - db
       - migration
 
-  postgres:
+  db:
     image: postgres:latest
     environment:
       POSTGRES_DB: "netology_stocks_products"
@@ -49,7 +49,7 @@ services:
     volumes:
       - .:/code
     depends_on:
-      - postgres
+      - db
 
   pgadmin:
     container_name: pgadmin_container
