@@ -60,4 +60,4 @@ jobs:
           DB_PORT: ${{ env.POSTGRES_PORT }}
           DB_USER: ${{ env.POSTGRES_USER }}
           DB_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-          DATABASE_URL: "postgres://postgres@127.0.0.1/netology_stocks_products"
+          DATABASE_URL: "postgres://postgres:vrag@netology_stocks_products:5432/postgres"
