@@ -25,7 +25,7 @@ services:
     environment:
       POSTGRES_DB: "netology_stocks_products"
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "secret"
+      POSTGRES_PASSWORD: "vrag"
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
