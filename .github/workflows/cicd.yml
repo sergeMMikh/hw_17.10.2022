@@ -49,7 +49,7 @@ jobs:
         run: flake8 logistic
 
       - name: Testing
-        run: pytest
+        run: python3 manage.py test
         env:
           SECRET_KEY: ${{ env.SECRET_KEY }}
           DEBUG: "0"
